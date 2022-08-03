@@ -1,13 +1,12 @@
-import { UseGuards } from '@nestjs/common';
+import { Inject, UseGuards } from '@nestjs/common';
 import {
   Resolver,
   Query,
   Mutation,
   Args,
   Context,
-  ResolveField,
-  Parent,
   Info,
+  Subscription,
 } from '@nestjs/graphql';
 import { GraphQLResolveInfo } from 'graphql';
 import {
@@ -15,21 +14,27 @@ import {
   ResolveTree,
   simplifyParsedResolveInfoFragmentWithType,
 } from 'graphql-parse-resolve-info';
+import { RedisPubSub } from 'graphql-redis-subscriptions';
 
 import { GraphqlJwtAuthGuard } from 'src/authentication/guard/graphql-jwt-auth.guard';
 import RequestWithUser from 'src/authentication/requestWithUser.interface';
-import { User } from 'src/user/model/user.model';
+import { PUB_SUB } from 'src/pubSub/pubSub.module';
 import { Post } from './model/post.model';
 import { CreatePostInput } from './post.input';
-import PostLoaders from './post.loaders';
 import PostService from './services/post.service';
 
+const POST_ADDED_EVENT = 'postAdded';
 @Resolver(() => Post)
 export class PostResolver {
   constructor(
     private postService: PostService,
-    private postLoaders: PostLoaders,
+    @Inject(PUB_SUB) private pubSub: RedisPubSub,
   ) {}
+
+  @Subscription(() => Post)
+  postAdded() {
+    return this.pubSub.asyncIterator(POST_ADDED_EVENT);
+  }
 
   @Query(() => [Post])
   async post(@Info() info: GraphQLResolveInfo) {
@@ -46,19 +51,17 @@ export class PostResolver {
     return post.items;
   }
 
-  @ResolveField('author', () => User)
-  async getAuthor(@Parent() post: Post) {
-    const { authorId } = post;
-
-    return this.postLoaders.batchAuthors.load(authorId);
-  }
-
   @Mutation(() => Post)
   @UseGuards(GraphqlJwtAuthGuard)
   async createPost(
     @Args('input') createPostInput: CreatePostInput,
     @Context() context: { req: RequestWithUser },
   ) {
-    return this.postService.createPost(createPostInput, context.req.user);
+    const newPost = await this.postService.createPost(
+      createPostInput,
+      context.req.user,
+    );
+    this.pubSub.publish(POST_ADDED_EVENT, { postAdded: newPost });
+    return newPost;
   }
 }

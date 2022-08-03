@@ -21,6 +21,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { EmailModule } from './email/email.module';
 import { EmailSchedulingModule } from './emailSchedule/emailSchedule.module';
 import { ChatModule } from './chat/chat.module';
+import { PubSubModule } from './pubSub/pubSub.module';
 
 @Module({
   imports: [
@@ -68,6 +69,7 @@ import { ChatModule } from './chat/chat.module';
     EmailModule,
     EmailSchedulingModule,
     ChatModule,
+    PubSubModule,
   ],
   controllers: [],
   providers: [],

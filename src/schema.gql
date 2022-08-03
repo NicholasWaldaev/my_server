@@ -2,18 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: Int!
-  email: String!
-}
-
 type Post {
   id: Int!
   title: String!
   content: String!
   paragraphs: [String!]!
   authorId: Int!
-  author: User!
 }
 
 type Query {
@@ -28,4 +22,8 @@ input CreatePostInput {
   title: String!
   content: String!
   paragraphs: [String!]!
+}
+
+type Subscription {
+  postAdded: Post!
 }

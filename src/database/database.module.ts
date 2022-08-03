@@ -22,7 +22,6 @@ import Comment from '../comment/comment.entity';
         entities: [Post, User, Address, Category, Comment],
         synchronize: true,
         autoLoadEntities: true,
-        logging: true,
       }),
     }),
   ],
