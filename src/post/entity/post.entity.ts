@@ -1,6 +1,7 @@
 import User from '../../user/entity/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
@@ -16,6 +17,15 @@ import Comment from '../../comment/comment.entity';
 class Post {
   @PrimaryGeneratedColumn()
   public id: number;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
+
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
+  scheduledDate?: Date;
 
   @Column()
   public title: string;

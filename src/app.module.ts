@@ -22,6 +22,7 @@ import { EmailModule } from './email/email.module';
 import { EmailSchedulingModule } from './emailSchedule/emailSchedule.module';
 import { ChatModule } from './chat/chat.module';
 import { PubSubModule } from './pubSub/pubSub.module';
+import { Timestamp } from './utils/timestamp.scalar';
 
 @Module({
   imports: [
@@ -33,6 +34,9 @@ import { PubSubModule } from './pubSub/pubSub.module';
         playground: Boolean(configService.get('GRAPHQL_PLAYGROUND')),
         autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
         installSubscriptionHandlers: true,
+        buildSchemaOptions: {
+          dateScalarMode: 'timestamp',
+        },
       }),
     }),
     ConfigModule.forRoot({
@@ -72,6 +76,6 @@ import { PubSubModule } from './pubSub/pubSub.module';
     PubSubModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [Timestamp],
 })
 export class AppModule {}

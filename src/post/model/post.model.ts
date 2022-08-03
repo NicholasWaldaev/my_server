@@ -6,6 +6,12 @@ export class Post {
   id: number;
 
   @Field()
+  createdAt: Date;
+
+  @Field({ nullable: true })
+  scheduledDate?: Date;
+
+  @Field()
   title: string;
 
   @Field()
