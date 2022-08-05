@@ -11,6 +11,7 @@ const mockedUser: User = {
     city: 'cityName',
     country: 'contryName',
   },
+  isTwoFactorAuthenticationEnabled: false,
 };
 
 export default mockedUser;

@@ -15,7 +15,6 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { PaginationParams } from '../utils/types/paginationParams';
-import JwtAuthenticationGuard from '../authentication/guard/jwt-authentication.guard';
 import RequestWithUser from '../authentication/requestWithUser.interface';
 import FindOneParams from '../utils/findOneParams';
 import { CreatePostDto } from './dto/createPost.dto';
@@ -23,6 +22,7 @@ import { UpdatePostDto } from './dto/updatePost.dto';
 import PostService from './services/post.service';
 import { GET_POST_CACHE_KEY } from './postCacheKey.constant';
 import { HttpCacheInterceptor } from './httpCache.interceptor';
+import JwtTwoFactorGuard from '../authentication/guard/jwt-two-factor.guard';
 
 @Controller('post')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -49,7 +49,7 @@ export default class PostsController {
   }
 
   @Post()
-  @UseGuards(JwtAuthenticationGuard)
+  @UseGuards(JwtTwoFactorGuard)
   async createPost(@Body() post: CreatePostDto, @Req() req: RequestWithUser) {
     return this.postService.createPost(post, req.user);
   }
