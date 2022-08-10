@@ -23,9 +23,21 @@ import { EmailSchedulingModule } from './emailSchedule/emailSchedule.module';
 import { ChatModule } from './chat/chat.module';
 import { PubSubModule } from './pubSub/pubSub.module';
 import { Timestamp } from './utils/timestamp.scalar';
+import { BullModule } from '@nestjs/bull';
+import { OptimizeModule } from './optimize/optimize.module';
 
 @Module({
   imports: [
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        redis: {
+          host: configService.get('REDIS_HOST'),
+          port: Number(configService.get('REDIS_PORT')),
+        },
+      }),
+      inject: [ConfigService],
+    }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [ConfigModule],
@@ -74,6 +86,7 @@ import { Timestamp } from './utils/timestamp.scalar';
     EmailSchedulingModule,
     ChatModule,
     PubSubModule,
+    OptimizeModule,
   ],
   controllers: [],
   providers: [Timestamp],
