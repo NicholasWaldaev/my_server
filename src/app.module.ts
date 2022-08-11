@@ -1,30 +1,28 @@
+import * as Joi from '@hapi/joi';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as Joi from '@hapi/joi';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import * as path from 'path';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { DatabaseModule } from './database/database.module';
-import { PostModule } from './post/post.module';
-import { AuthenticationModule } from './authentication/authentication.module';
-import { UserModule } from './user/user.module';
-import { CategoryModule } from './category/category.module';
-import { SearchModule } from './search/search.module';
-import { SubscribersModule } from './subscribers/subscribers.module';
-import { CommentModule } from './comment/comment.module';
-import { ProductCategoryModule } from './productCategory/productCategory.module';
-import { ProductModule } from './product/product.module';
+import { BullModule } from '@nestjs/bull';
 import { ScheduleModule } from '@nestjs/schedule';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { CategoryModule } from './category/category.module';
+import { ChatModule } from './chat/chat.module';
+import { CommentModule } from './comment/comment.module';
+import { DatabaseModule } from './database/database.module';
 import { EmailModule } from './email/email.module';
 import { EmailSchedulingModule } from './emailSchedule/emailSchedule.module';
-import { ChatModule } from './chat/chat.module';
-import { PubSubModule } from './pubSub/pubSub.module';
-import { Timestamp } from './utils/timestamp.scalar';
-import { BullModule } from '@nestjs/bull';
 import { OptimizeModule } from './optimize/optimize.module';
+import { PostModule } from './post/post.module';
+import { ProductModule } from './product/product.module';
+import { ProductCategoryModule } from './productCategory/productCategory.module';
+import { PubSubModule } from './pubSub/pubSub.module';
+import { SearchModule } from './search/search.module';
+import { SubscribersModule } from './subscribers/subscribers.module';
+import { UserModule } from './user/user.module';
+import { Timestamp } from './utils/timestamp.scalar';
 
 @Module({
   imports: [
@@ -69,6 +67,9 @@ import { OptimizeModule } from './optimize/optimize.module';
         EMAIL_SERVICE: Joi.string().required(),
         EMAIL_USER: Joi.string().required(),
         EMAIL_PASSWORD: Joi.string().required(),
+        STRIPE_SECRET_KEY: Joi.string(),
+        STRIPE_CURRENCY: Joi.string(),
+        FRONTEND_URL: Joi.string(),
       }),
     }),
     ScheduleModule.forRoot(),

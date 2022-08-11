@@ -11,7 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../../user/user.service';
 import * as stream from 'stream';
 import { AuthenticationService } from '../authentication.service';
 import JwtAuthenticationGuard from '../guard/jwt-authentication.guard';

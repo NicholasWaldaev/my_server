@@ -1534,7 +1534,7 @@
   dependencies:
     "@types/express" "*"
 
-"@types/node@*", "@types/node@^18.6.2", "@types/node@>=10.0.0", "@types/node@>=13.7.0":
+"@types/node@*", "@types/node@^18.6.2", "@types/node@>=10.0.0", "@types/node@>=13.7.0", "@types/node@>=8.1.0":
   "integrity" "sha512-KcfkBq9H4PI6Vpu5B/KoPeuVDAbmi+2mDBqGPGUgoL7yXQtcWGu2vJWmmRkneWK3Rh0nIAX192Aa87AqKHYChQ=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-18.6.2.tgz"
   "version" "18.6.2"
@@ -6969,6 +6969,14 @@
   "version" "1.0.1"
   dependencies:
     "escape-string-regexp" "^1.0.2"
+
+"stripe@^10.1.0":
+  "integrity" "sha512-J5TF8ACY+aE2S0N9Uch/rXTmMwKvcrakoHFMW0hLOFpOEAUF6C+zHU4U9zNmJVBS7TQ2TLFb22EA9aHNUWi0Vg=="
+  "resolved" "https://registry.npmjs.org/stripe/-/stripe-10.1.0.tgz"
+  "version" "10.1.0"
+  dependencies:
+    "@types/node" ">=8.1.0"
+    "qs" "^6.10.3"
 
 "subscriptions-transport-ws@0.11.0":
   "integrity" "sha512-8D4C6DIH5tGiAIpp5I0wD/xRlNiZAPGHygzCe7VzyzUoxHtawzjNAY9SUTXU05/EY2NMY9/9GF0ycizkXr1CWQ=="

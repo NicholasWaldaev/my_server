@@ -9,7 +9,7 @@ import Post from './entity/post.entity';
 import PostService from './services/post.service';
 import PostSearchService from './services/postSearch.service';
 import { PostResolver } from './post.resolver';
-import { UserModule } from 'src/user/user.module';
+import { UserModule } from '../user/user.module';
 import PostLoaders from './post.loaders';
 
 @Module({

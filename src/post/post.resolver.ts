@@ -16,9 +16,9 @@ import {
 } from 'graphql-parse-resolve-info';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 
-import { GraphqlJwtAuthGuard } from 'src/authentication/guard/graphql-jwt-auth.guard';
-import RequestWithUser from 'src/authentication/requestWithUser.interface';
-import { PUB_SUB } from 'src/pubSub/pubSub.module';
+import { GraphqlJwtAuthGuard } from '../authentication/guard/graphql-jwt-auth.guard';
+import RequestWithUser from '../authentication/requestWithUser.interface';
+import { PUB_SUB } from '../pubSub/pubSub.module';
 import { Post } from './model/post.model';
 import { CreatePostInput } from './post.input';
 import PostService from './services/post.service';

@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { WsException } from '@nestjs/websockets';
 import { parse } from 'cookie';
 import { Socket } from 'socket.io';
-import { AuthenticationService } from 'src/authentication/authentication.service';
-import User from 'src/user/entity/user.entity';
+import { AuthenticationService } from '../authentication/authentication.service';
+import User from '../user/entity/user.entity';
 import { Repository } from 'typeorm';
 import Message from './massage.entity';
 
