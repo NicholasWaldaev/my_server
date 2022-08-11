@@ -23,6 +23,7 @@ import { SearchModule } from './search/search.module';
 import { SubscribersModule } from './subscribers/subscribers.module';
 import { UserModule } from './user/user.module';
 import { Timestamp } from './utils/timestamp.scalar';
+import SmsModule from './sms/sms.module';
 
 @Module({
   imports: [
@@ -67,9 +68,10 @@ import { Timestamp } from './utils/timestamp.scalar';
         EMAIL_SERVICE: Joi.string().required(),
         EMAIL_USER: Joi.string().required(),
         EMAIL_PASSWORD: Joi.string().required(),
-        STRIPE_SECRET_KEY: Joi.string(),
-        STRIPE_CURRENCY: Joi.string(),
         FRONTEND_URL: Joi.string(),
+        TWILIO_ACCOUNT_SID: Joi.string().required(),
+        TWILIO_AUTH_TOKEN: Joi.string().required(),
+        TWILIO_VERIFICATION_SERVICE_SID: Joi.string().required(),
       }),
     }),
     ScheduleModule.forRoot(),
@@ -88,6 +90,7 @@ import { Timestamp } from './utils/timestamp.scalar';
     ChatModule,
     PubSubModule,
     OptimizeModule,
+    SmsModule,
   ],
   controllers: [],
   providers: [Timestamp],

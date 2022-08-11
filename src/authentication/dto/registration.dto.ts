@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  Matches,
+  MinLength,
+} from 'class-validator';
 
 class RegisterDto {
   @IsEmail()
@@ -12,6 +18,11 @@ class RegisterDto {
   @IsNotEmpty()
   @MinLength(7)
   password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Matches(/(^\+7\d{10}$)/)
+  phoneNumber: string;
 }
 
 export default RegisterDto;

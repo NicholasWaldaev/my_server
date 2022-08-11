@@ -5,6 +5,7 @@ const mockedUser: User = {
   email: 'user@email.com',
   name: 'John',
   password: 'hash',
+  phoneNumber: '+48123123123',
   address: {
     id: 1,
     street: 'streetName',
@@ -12,6 +13,7 @@ const mockedUser: User = {
     country: 'contryName',
   },
   isTwoFactorAuthenticationEnabled: false,
+  isPhoneNumberConfirmed: false,
   twoFactorAuthenticationSecret: null,
 };
 
