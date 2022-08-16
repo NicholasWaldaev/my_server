@@ -24,6 +24,7 @@ import { SubscribersModule } from './subscribers/subscribers.module';
 import { UserModule } from './user/user.module';
 import { Timestamp } from './utils/timestamp.scalar';
 import SmsModule from './sms/sms.module';
+import { EmailConfirmationModule } from './emailConfermation/emailConfirmation.module';
 
 @Module({
   imports: [
@@ -52,6 +53,9 @@ import SmsModule from './sms/sms.module';
     }),
     ConfigModule.forRoot({
       validationSchema: Joi.object({
+        JWT_VERIFICATION_TOKEN_SECRET: Joi.string().required(),
+        JWT_VERIFICATION_TOKEN_EXPIRATION_TIME: Joi.string().required(),
+        EMAIL_CONFIRMATION_URL: Joi.string().required(),
         GRAPHQL_PLAYGROUND: Joi.number(),
         POSTGRES_HOST: Joi.string().required(),
         POSTGRES_PORT: Joi.number().required(),
@@ -91,6 +95,7 @@ import SmsModule from './sms/sms.module';
     PubSubModule,
     OptimizeModule,
     SmsModule,
+    EmailConfirmationModule,
   ],
   controllers: [],
   providers: [Timestamp],

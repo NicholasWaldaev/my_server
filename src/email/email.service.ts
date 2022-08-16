@@ -9,10 +9,11 @@ export class EmailService {
 
   constructor(private readonly configService: ConfigService) {
     this.nodemailerTransport = createTransport({
-      service: configService.get('EMAIL_SERVICE'),
+      host: 'smtp.ethereal.email',
+      port: 587,
       auth: {
-        user: configService.get('EMAIL_USER'),
-        pass: configService.get('EMAIL_PASSWORD'),
+        user: 'violette.rempel@ethereal.email',
+        pass: 'TFtxrz1g8gqQUdNMS8',
       },
     });
   }

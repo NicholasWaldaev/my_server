@@ -11,6 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { EmailConfirmationService } from 'src/emailConfermation/emailConfirmation.sevice';
 import { UserService } from '../user/user.service';
 import { AuthenticationService } from './authentication.service';
 import RegisterDto from './dto/registration.dto';
@@ -25,11 +26,16 @@ export class AuthenticationController {
   constructor(
     private readonly authenticationService: AuthenticationService,
     private readonly userService: UserService,
+    private readonly emailConfirmationService: EmailConfirmationService,
   ) {}
 
   @Post('register')
   async register(@Body() registrationData: RegisterDto) {
-    return this.authenticationService.register(registrationData);
+    const user = this.authenticationService.register(registrationData);
+    await this.emailConfirmationService.sendVerificationLink(
+      registrationData.email,
+    );
+    return user;
   }
 
   @HttpCode(200)

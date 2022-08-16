@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { EmailConfirmationModule } from 'src/emailConfermation/emailConfirmation.module';
 import { UserModule } from '../user/user.module';
 import { AuthenticationController } from './authentication.controller';
 import { AuthenticationService } from './authentication.service';
@@ -27,6 +28,7 @@ import { TwoFactorAuthenticationService } from './twoFactorAuthentication/twoFac
       }),
     }),
     UserModule,
+    EmailConfirmationModule,
   ],
   providers: [
     AuthenticationService,

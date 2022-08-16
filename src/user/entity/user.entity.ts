@@ -24,6 +24,9 @@ class User {
   @Column({ unique: true })
   public email: string;
 
+  @Column({ default: false })
+  public isEmailConfirmed: boolean;
+
   @Column({ nullable: true })
   public phoneNumber: string;
 

@@ -7,6 +7,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { EmailConfirmationGuard } from 'src/emailConfermation/emailConfirmation.guards';
 import JwtAuthenticationGuard from '../authentication/guard/jwt-authentication.guard';
 import FindOneParams from '../utils/findOneParams';
 import { CategoryService } from './category.service';
@@ -28,6 +29,7 @@ export class CategoryController {
   }
 
   @Post()
+  @UseGuards(EmailConfirmationGuard)
   @UseGuards(JwtAuthenticationGuard)
   async createCategory(@Body() category: CreateCategoryDto) {
     return this.categoryService.createCategory(category);
