@@ -38,6 +38,7 @@
     "@nestjs/platform-express": "^9.0.7",
     "@nestjs/platform-socket.io": "^9.0.7",
     "@nestjs/schedule": "^2.1.0",
+    "@nestjs/terminus": "^9.1.1",
     "@nestjs/typeorm": "^9.0.0",
     "@nestjs/websockets": "^9.0.7",
     "@types/adm-zip": "^0.5.0",

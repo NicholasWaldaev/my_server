@@ -25,6 +25,7 @@ import { UserModule } from './user/user.module';
 import { Timestamp } from './utils/timestamp.scalar';
 import SmsModule from './sms/sms.module';
 import { EmailConfirmationModule } from './emailConfermation/emailConfirmation.module';
+import HealthModule from './health/health.module';
 
 @Module({
   imports: [
@@ -96,6 +97,7 @@ import { EmailConfirmationModule } from './emailConfermation/emailConfirmation.m
     OptimizeModule,
     SmsModule,
     EmailConfirmationModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [Timestamp],
