@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -23,7 +24,7 @@ export class CategoryController {
     return this.categoryService.getAllCategories();
   }
 
-  @Get('id')
+  @Get(':id')
   getCategoryById(@Param() { id }: FindOneParams) {
     return this.categoryService.getCategoryById(Number(id));
   }
@@ -41,5 +42,10 @@ export class CategoryController {
     @Body() category: UpdateCategoryDto,
   ) {
     return this.categoryService.updateCategory(Number(id), category);
+  }
+
+  @Delete(':id')
+  async deleteCategory(@Param() { id }: FindOneParams) {
+    return this.categoryService.deleteCategory(Number(id));
   }
 }

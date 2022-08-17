@@ -1,16 +1,24 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { DataSource, In, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt-nodejs';
 
 import { CreateUserDto } from './dto/createUser.dto';
 import User from './entity/user.entity';
+import { DatabaseFileService } from 'src/files/databaseFile.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private readonly databaseFileService: DatabaseFileService,
+    private dataSource: DataSource,
   ) {}
 
   async getByEmail(email: string) {
@@ -102,5 +110,44 @@ export class UserService {
         isEmailConfirmed: true,
       },
     );
+  }
+
+  async addAvatar(userId: number, imageBuffer: Buffer, filename: string) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const user = await queryRunner.manager.findOne(User, {
+        where: { id: userId },
+      });
+      const currentAvatarId = user.avatarId;
+      const avatar =
+        await this.databaseFileService.uploadDatabaseFileWithQueryRunner(
+          imageBuffer,
+          filename,
+          queryRunner,
+        );
+
+      await queryRunner.manager.update(User, userId, {
+        avatarId: avatar.id,
+      });
+
+      if (currentAvatarId) {
+        await this.databaseFileService.deleteFileWithQueryRunner(
+          currentAvatarId,
+          queryRunner,
+        );
+      }
+
+      await queryRunner.commitTransaction();
+
+      return avatar;
+    } catch {
+      await queryRunner.rollbackTransaction();
+      throw new InternalServerErrorException();
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

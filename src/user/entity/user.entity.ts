@@ -9,6 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import Address from './address.entity';
+import DatabaseFile from 'src/files/databaseFile.entity';
 
 @Entity()
 class User {
@@ -41,6 +42,13 @@ class User {
 
   @Column()
   public name: string;
+
+  @JoinColumn({ name: 'avatarId' })
+  @OneToOne(() => DatabaseFile, { nullable: true })
+  public avatar?: DatabaseFile;
+
+  @Column({ nullable: true })
+  public avatarId?: number;
 
   @Column()
   @Exclude()
