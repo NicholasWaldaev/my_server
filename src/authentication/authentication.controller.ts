@@ -19,6 +19,8 @@ import JwtAuthenticationGuard from './guard/jwt-authentication.guard';
 import JwtRefreshGuard from './guard/jwt-refresh.guard';
 import { LocalAuthenticationGuard } from './guard/localAuthentication.guard';
 import RequestWithUser from './requestWithUser.interface';
+import { ApiBody } from '@nestjs/swagger';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -41,6 +43,7 @@ export class AuthenticationController {
   @HttpCode(200)
   @UseGuards(LocalAuthenticationGuard)
   @Post('log-in')
+  @ApiBody({ type: LoginDto })
   async logIn(@Req() request: RequestWithUser) {
     const { user } = request;
     const accessTokenCookie =

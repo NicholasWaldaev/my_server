@@ -27,6 +27,7 @@ import SmsModule from './sms/sms.module';
 import { EmailConfirmationModule } from './emailConfermation/emailConfirmation.module';
 import HealthModule from './health/health.module';
 import { DatabaseFileModule } from './files/databaseFile.module';
+import { GoogleAuthenticationModule } from './googleAuthentication/googleAuthentication.module';
 
 @Module({
   imports: [
@@ -55,6 +56,8 @@ import { DatabaseFileModule } from './files/databaseFile.module';
     }),
     ConfigModule.forRoot({
       validationSchema: Joi.object({
+        GOOGLE_AUTH_CLIENT_ID: Joi.string().required(),
+        GOOGLE_AUTH_CLIENT_SECRET: Joi.string().required(),
         JWT_VERIFICATION_TOKEN_SECRET: Joi.string().required(),
         JWT_VERIFICATION_TOKEN_EXPIRATION_TIME: Joi.string().required(),
         EMAIL_CONFIRMATION_URL: Joi.string().required(),
@@ -100,6 +103,7 @@ import { DatabaseFileModule } from './files/databaseFile.module';
     EmailConfirmationModule,
     HealthModule,
     DatabaseFileModule,
+    GoogleAuthenticationModule,
   ],
   controllers: [],
   providers: [Timestamp],

@@ -23,8 +23,15 @@ import PostService from './services/post.service';
 import { GET_POST_CACHE_KEY } from './postCacheKey.constant';
 import { HttpCacheInterceptor } from './httpCache.interceptor';
 import JwtTwoFactorGuard from '../authentication/guard/jwt-two-factor.guard';
+import {
+  ApiTags,
+  ApiParam,
+  ApiOkResponse,
+  ApiNotFoundResponse,
+} from '@nestjs/swagger';
 
 @Controller('post')
+@ApiTags('post')
 @UseInterceptors(ClassSerializerInterceptor)
 export default class PostsController {
   constructor(private readonly postService: PostService) {}
@@ -44,6 +51,21 @@ export default class PostsController {
   }
 
   @Get(':id')
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'Should be an id of a post that exists in the database',
+    type: Number,
+  })
+  @ApiOkResponse({
+    status: 200,
+    description: 'A post has been successfully fetched',
+    type: Post,
+  })
+  @ApiNotFoundResponse({
+    status: 404,
+    description: 'A post with given id does not exist.',
+  })
   getPostById(@Param() { id }: FindOneParams) {
     return this.postService.getPostById(Number(id));
   }

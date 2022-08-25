@@ -21,6 +21,10 @@ export class UserService {
     private dataSource: DataSource,
   ) {}
 
+  async findAll() {
+    return await this.userRepository.find();
+  }
+
   async getByEmail(email: string) {
     const user = await this.userRepository.findOne({ where: { email } });
     if (user) {
@@ -149,5 +153,20 @@ export class UserService {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  async createWithGoogle(email: string, name: string) {
+    const newUser = await this.userRepository.create({
+      email,
+      name,
+      isRegisteredWithGoogle: true,
+    });
+
+    await this.userRepository.save(newUser);
+    return newUser;
+  }
+
+  async deleteUser(id) {
+    return await this.userRepository.delete(id);
   }
 }

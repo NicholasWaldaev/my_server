@@ -50,9 +50,12 @@ class User {
   @Column({ nullable: true })
   public avatarId?: number;
 
-  @Column()
+  @Column({ nullable: true })
   @Exclude()
   public password: string;
+
+  @Column({ default: false })
+  public isRegisteredWithGoogle: boolean;
 
   @OneToOne(() => Address, {
     eager: true,

@@ -40,6 +40,7 @@
     "@nestjs/platform-express": "^9.0.7",
     "@nestjs/platform-socket.io": "^9.0.7",
     "@nestjs/schedule": "^2.1.0",
+    "@nestjs/swagger": "^6.0.5",
     "@nestjs/terminus": "^9.1.1",
     "@nestjs/typeorm": "^9.0.0",
     "@nestjs/websockets": "^9.0.7",
@@ -66,6 +67,7 @@
     "cookie": "^0.5.0",
     "cookie-parser": "^1.4.6",
     "dataloader": "^2.1.0",
+    "googleapis": "^107.0.0",
     "graphql": "^16.5.0",
     "graphql-parse-resolve-info": "^4.12.3",
     "graphql-redis-subscriptions": "^2.5.0",
@@ -83,6 +85,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.5.0",
     "twilio": "^3.80.1",
     "typeorm": "^0.3.7"
   },

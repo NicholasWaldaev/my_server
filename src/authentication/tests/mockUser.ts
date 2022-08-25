@@ -16,6 +16,7 @@ const mockedUser: User = {
   isPhoneNumberConfirmed: false,
   twoFactorAuthenticationSecret: null,
   isEmailConfirmed: false,
+  isRegisteredWithGoogle: false,
 };
 
 export default mockedUser;
