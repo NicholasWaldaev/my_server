@@ -1,6 +1,6 @@
 import * as Joi from '@hapi/joi';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import * as path from 'path';
@@ -28,6 +28,8 @@ import { EmailConfirmationModule } from './emailConfermation/emailConfirmation.m
 import HealthModule from './health/health.module';
 import { DatabaseFileModule } from './files/databaseFile.module';
 import { GoogleAuthenticationModule } from './googleAuthentication/googleAuthentication.module';
+import LogsMiddleware from './utils/logs.middleware';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
@@ -104,8 +106,13 @@ import { GoogleAuthenticationModule } from './googleAuthentication/googleAuthent
     HealthModule,
     DatabaseFileModule,
     GoogleAuthenticationModule,
+    LoggerModule,
   ],
   controllers: [],
   providers: [Timestamp],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LogsMiddleware).forRoutes('*');
+  }
+}

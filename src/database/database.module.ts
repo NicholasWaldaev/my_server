@@ -6,6 +6,7 @@ import User from '../user/entity/user.entity';
 import Address from '../user/entity/address.entity';
 import Category from '../category/category.entity';
 import Comment from '../comment/comment.entity';
+import DatabaseLogger from './databaseLogger';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import Comment from '../comment/comment.entity';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
+        logger: new DatabaseLogger(),
         host: configService.get('POSTGRES_HOST'),
         port: +configService.get<number>('POSTGRES_PORT'),
         username: configService.get('POSTGRES_USER'),

@@ -30,7 +30,7 @@ export class CategoryController {
   }
 
   @Post()
-  @UseGuards(EmailConfirmationGuard)
+  // @UseGuards(EmailConfirmationGuard)
   @UseGuards(JwtAuthenticationGuard)
   async createCategory(@Body() category: CreateCategoryDto) {
     return this.categoryService.createCategory(category);
