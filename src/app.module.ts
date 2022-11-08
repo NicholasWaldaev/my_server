@@ -48,7 +48,8 @@ import { LoggerModule } from './logger/logger.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        playground: Boolean(configService.get('GRAPHQL_PLAYGROUND')),
+        playground: true,
+        debug: true,
         autoSchemaFile: path.join(process.cwd(), 'src/schema.gql'),
         installSubscriptionHandlers: true,
         buildSchemaOptions: {

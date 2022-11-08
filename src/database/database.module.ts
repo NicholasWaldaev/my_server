@@ -1,11 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import Post from '../post/entity/post.entity';
-import User from '../user/entity/user.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import Address from '../user/entity/address.entity';
-import Category from '../category/category.entity';
-import Comment from '../comment/comment.entity';
 import DatabaseLogger from './databaseLogger';
 
 @Module({
@@ -21,9 +17,9 @@ import DatabaseLogger from './databaseLogger';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
-        entities: [Post, User, Address, Category, Comment],
-        synchronize: true,
+        entities: [Address],
         autoLoadEntities: true,
+        synchronize: false,
       }),
     }),
   ],

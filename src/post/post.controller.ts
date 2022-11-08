@@ -29,6 +29,8 @@ import {
   ApiOkResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
+import { PermissionGuard } from 'src/user/guards/permission.guard';
+import { PostsPermission } from 'src/user/enums/postsPermission.enum';
 
 @Controller('post')
 @ApiTags('post')
@@ -82,6 +84,7 @@ export default class PostsController {
   }
 
   @Delete(':id')
+  @UseGuards(PermissionGuard(PostsPermission.DeletePost))
   async deletePost(@Param('id') id: string) {
     this.postService.deletePost(Number(id));
   }

@@ -9,7 +9,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import Address from './address.entity';
-import DatabaseFile from 'src/files/databaseFile.entity';
+import DatabaseFile from '../../files/databaseFile.entity';
+import { Role } from '../enums/role.enum';
+import Permission from '../permission.type';
 
 @Entity()
 class User {
@@ -66,6 +68,21 @@ class User {
 
   @OneToMany(() => Post, (post: Post) => post.author)
   public posts?: Post[];
+
+  @Column({
+    type: 'enum',
+    enum: Permission,
+    array: true,
+    default: [],
+  })
+  public permissions: Permission[];
+
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.User,
+  })
+  public role: Role;
 }
 
 export default User;

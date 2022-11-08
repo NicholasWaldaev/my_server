@@ -12,8 +12,8 @@ export class EmailService {
       host: 'smtp.ethereal.email',
       port: 587,
       auth: {
-        user: 'violette.rempel@ethereal.email',
-        pass: 'TFtxrz1g8gqQUdNMS8',
+        user: configService.get('EMAIL_USER'),
+        pass: configService.get('EMAIL_PASSWORD'),
       },
     });
   }

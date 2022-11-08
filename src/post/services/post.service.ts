@@ -104,8 +104,8 @@ export default class PostService {
       author: user,
     });
     const savedPost = await this.postRepository.save(newPost);
-    this.postSearchService.indexPost(savedPost);
-    await this.clearCache();
+    // this.postSearchService.indexPost(savedPost);
+    // await this.clearCache();
     return savedPost;
   }
 
@@ -144,7 +144,7 @@ export default class PostService {
     if (!deleteResponse.affected) {
       throw new PostNotFoundException(id);
     }
-    await this.postSearchService.remove(id);
-    await this.clearCache();
+    // await this.postSearchService.remove(id);
+    // await this.clearCache();
   }
 }
